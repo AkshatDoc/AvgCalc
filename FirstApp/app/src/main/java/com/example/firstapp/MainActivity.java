@@ -14,24 +14,24 @@ import org.w3c.dom.Text;
 import java.util.Arrays;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     String classCode;
     int grade;
     double[] avg = new double[8];
-    String val = "";
-    String listOfClass = "";
-    private EditText Class;
-    private EditText Grade;
+    String val;
+    String listOfClass;
     EditText change;
     int i = 0;
+    Button editClass, editGrade, submitEdit;
+    private EditText Class;
+    private EditText Grade;
     private TextView output;
     private Button submitButton;
     private Button clearButton;
-    Button editClass, editGrade, submitEdit;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) throws NumberFormatException{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         change = (EditText) findViewById(R.id.edit);
@@ -48,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
         editGrade = (Button) findViewById(R.id.editGrade);
 
 
-
-
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 output = (TextView) findViewById(R.id.class1);
                 output.setText(classCode);
                 listOfClass = listOfClass + classCode + "\n";
-
-                grade = Integer.valueOf(Grade.getText().toString());
+                    try {
+                        grade = Integer.valueOf(String.valueOf(Grade.getText()));
+                    }catch(NumberFormatException ex){
+                }
                 output = (TextView) findViewById(R.id.grade1);
                 if (chkAvg(grade)) {
                     output.setText(Grade.getText());
@@ -67,14 +66,15 @@ public class MainActivity extends AppCompatActivity {
                     output.setText("Ruh Roh, not an average");
                 }
                 val = val + grade + "\n";
-
-                output = (TextView) findViewById(R.id.grade1);
-                output.setText(val);
-                output = (TextView) findViewById(R.id.class1);
-                output.setText(listOfClass);
-                avg[i] += (double) grade;
-
-
+                        try {
+                            output = (TextView) findViewById(R.id.grade1);
+                            output.setText(val);
+                            output = (TextView) findViewById(R.id.class1);
+                            output.setText(listOfClass);
+                            avg[i] += (double) grade;
+                        }catch(  NumberFormatException e){
+                            throw e;
+                        }
                 i++;
                 if (i == 8) {
                     output = (TextView) findViewById(R.id.Average);
@@ -135,10 +135,8 @@ public class MainActivity extends AppCompatActivity {
                         editGrade.setVisibility(View.VISIBLE);
                     }
                 });
-
             }
         });
-
 
         editGrade.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,9 +172,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     public void clearText() {
@@ -210,6 +205,5 @@ public class MainActivity extends AppCompatActivity {
         avg = avg / 8;
         return avg;
     }
-
 
 }
