@@ -28,7 +28,7 @@
         android:layout_height="44dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="116dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/edit_message"
@@ -86,24 +86,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Grade1"
         app:layout_constraintEnd_toStartOf="@+id/class1"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Grade" />
+        app:layout_constraintTop_toBottomOf="@+id/saveClass" />
 
 
     <TextView
         android:id="@+id/class1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
-        android:text="Class 1"
-        app:layout_constraintBottom_toBottomOf="@+id/grade1"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/EditSwitchGrade"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/grade1"
         app:layout_constraintVertical_bias="0.0" />
@@ -112,64 +111,111 @@
         android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="92dp"
         android:text="@string/buttonClear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/EditClass"
+        android:id="@+id/EditSwitchClass"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginLeft="76dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="64dp"
-        android:text="@string/EditSwitchClass"
-        app:layout_constraintBottom_toTopOf="@+id/clearButton"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="68dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginBottom="140dp"
+        android:text="@string/EditSwitchGrade"
+        app:layout_constraintBottom_toTopOf="@+id/submitEdit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit"
-        app:layout_constraintVertical_bias="0.209" />
+        app:layout_constraintTop_toBottomOf="@+id/grade1" />
 
     <Button
-        android:id="@+id/editGrade"
+        android:id="@+id/EditSwitchGrade"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginEnd="72dp"
         android:layout_marginRight="72dp"
-        android:text="@string/EditchSwitchGrade"
-        app:layout_constraintBottom_toBottomOf="@+id/EditClass"
+        android:text="@string/EditSwitchClass"
+        app:layout_constraintBottom_toBottomOf="@+id/EditSwitchClass"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/EditClass" />
+        app:layout_constraintTop_toTopOf="@+id/EditSwitchClass"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="192dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/class1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/Average" />
 
     <Button
         android:id="@+id/submitEdit"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginBottom="16dp"
         android:text="Submit"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/clearButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditClass" />
+        app:layout_constraintTop_toBottomOf="@+id/Average" />
+
+    <Button
+        android:id="@+id/saveGrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/saveGrade"
+        app:layout_constraintBottom_toBottomOf="@+id/loadData"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loadData" />
+
+    <Button
+        android:id="@+id/saveClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/saveClass"
+        app:layout_constraintBottom_toBottomOf="@+id/loadData"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loadData" />
+
+    <Button
+        android:id="@+id/loadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/loadData"
+        app:layout_constraintEnd_toStartOf="@+id/saveClass"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/saveGrade"
+        app:layout_constraintTop_toBottomOf="@+id/Grade" />
+
+    <Button
+        android:id="@+id/deleteFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/deleteFile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clearButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

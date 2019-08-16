@@ -10,5 +10,9 @@
     <string name="Go">Let\'s Go</string>
     <string name="title_activity_open_screen">OpenScreen</string>
     <string name="EditSwitchClass">Edit Class</string>
-    <string name="EditchSwitchGrade">Edit Grade</string>
+    <string name="EditSwitchGrade">Edit Grade</string>
+    <string name="saveClass">Save Class</string>
+    <string name="saveGrade">Save Grade</string>
+    <string name="loadData">Load Data</string>
+    <string name="deleteFile">Delete File</string>
 </resources>
