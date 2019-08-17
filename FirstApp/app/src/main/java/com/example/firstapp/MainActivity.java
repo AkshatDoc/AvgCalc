@@ -9,14 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Scanner;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -99,33 +95,6 @@ public class MainActivity extends AppCompatActivity {
                         submitButton.setEnabled(false);
                         saveClass.setVisibility(View.VISIBLE);
                         saveGrade.setVisibility(View.VISIBLE);
-                        saveClass.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                FileOutputStream fos = null;
-                                try {
-                                    fos = openFileOutput(fileName, MODE_PRIVATE);
-                                    String text;
-                                    text = listOfClass + "," + val;
-                                    fos.write(text.getBytes());
-
-                                    Toast.makeText(MainActivity.this, "Saved to " + getFilesDir() + "/" + fileName, Toast.LENGTH_LONG).show();
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    if (fos != null) {
-                                        try {
-                                            fos.close();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
-                            }
-                        });
-
                         i = 0;
                     }
                 } catch (NumberFormatException e) {
@@ -134,6 +103,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        saveClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveFile(fileName, listOfClass + "," + val);
+            }
+        });
+
+
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 val = val.replace("\n", ",");
                 change.setText(val);
                 editClass.setEnabled(false);
+
                 submitEdit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -229,50 +208,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loadData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FileInputStream fis = null;
-                try {
-                    fis = openFileInput(fileName);
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader br = new BufferedReader(isr);
-                    StringBuilder sb = new StringBuilder();
-                    String text;
-
-                    while ((text = br.readLine()) != null) {
-                        sb.append(text).append("\n");
-                    }
-                        System.out.println(text);
-
-//                    listOfClass = text.substring(0, text.indexOf(","));
-//                    val = text.substring(space + 1);
-//                    System.out.println(listOfClass + "\n" + val);
-//                    output = (TextView) findViewById(R.id.grade1);
-//                    output.setText(val);
-//                    output = (TextView) findViewById(R.id.class1);
-//                    output.setText(listOfClass);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        });
-
 
         deleteFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 file.delete();
+            }
+        });
+
+
+        loadData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String totalText = readFile(fileName);
+                listOfClass = totalText.substring(0,totalText.indexOf(','));
+                val = totalText.substring(totalText.indexOf(',')+1);
+                output = (TextView) findViewById(R.id.class1);
+                output.setText(listOfClass);
+                output = (TextView) findViewById(R.id.grade1);
+                output.setText(val);
             }
         });
 
@@ -311,6 +265,39 @@ public class MainActivity extends AppCompatActivity {
         avg = avg / 8;
         return avg;
     }
+
+public void saveFile(String file, String text){
+        try{
+            FileOutputStream fos = openFileOutput(file, MODE_PRIVATE);
+            fos.write(text.getBytes());
+            fos.close();
+            Toast.makeText(MainActivity.this, "Saved to" + getFilesDir(), Toast.LENGTH_SHORT).show();
+        }catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Error Saving File!", Toast.LENGTH_SHORT).show();
+        }
+}
+
+    public String readFile(String file){
+        String text = "";
+        try{
+            Toast.makeText(MainActivity.this,"Loading",Toast.LENGTH_SHORT).show();
+            FileInputStream fis = openFileInput(file);
+            int size = fis.available();
+            byte[] buffer = new byte[size];
+            fis.read(buffer);
+            fis.close();
+            text = new String(buffer);
+        }catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Error Loading File!", Toast.LENGTH_SHORT).show();
+        }
+
+        return text;
+    }
+
+
+
 }
 
 
