@@ -2,6 +2,8 @@ package com.example.firstapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.firstapp.SplashScreen;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +14,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -54,11 +55,25 @@ public class MainActivity extends AppCompatActivity {
         editGrade = (Button) findViewById(R.id.EditSwitchClass);
         editClass = (Button) findViewById(R.id.EditSwitchGrade);
         saveClass = (Button) findViewById(R.id.saveClass);
-        saveGrade = (Button) findViewById(R.id.saveGrade);
         loadData = (Button) findViewById(R.id.loadData);
         deleteFile = (Button) findViewById(R.id.deleteFile);
         saveClass.setVisibility(View.INVISIBLE);
         saveGrade.setVisibility(View.INVISIBLE);
+
+        String info = SplashScreen.info;
+
+        System.out.println(info);
+
+        try {
+            listOfClass = info.substring(0, info.indexOf(','));
+            val = info.substring(info.indexOf(',') + 1);
+            output = (TextView) findViewById(R.id.class1);
+            output.setText(listOfClass);
+            output = (TextView) findViewById(R.id.grade1);
+            output.setText(val);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -220,13 +235,18 @@ public class MainActivity extends AppCompatActivity {
         loadData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String totalText = readFile(fileName);
-                listOfClass = totalText.substring(0,totalText.indexOf(','));
-                val = totalText.substring(totalText.indexOf(',')+1);
-                output = (TextView) findViewById(R.id.class1);
-                output.setText(listOfClass);
-                output = (TextView) findViewById(R.id.grade1);
-                output.setText(val);
+                try {
+                    String totalText = readFile(fileName);
+                    listOfClass = totalText.substring(0, totalText.indexOf(','));
+                    val = totalText.substring(totalText.indexOf(',') + 1);
+                    output = (TextView) findViewById(R.id.class1);
+                    output.setText(listOfClass);
+                    output = (TextView) findViewById(R.id.grade1);
+                    output.setText(val);
+                }catch(Exception e){
+                    Toast.makeText(MainActivity.this, "Error finding information",Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -266,36 +286,35 @@ public class MainActivity extends AppCompatActivity {
         return avg;
     }
 
-public void saveFile(String file, String text){
-        try{
+    public void saveFile(String file, String text) {
+        try {
             FileOutputStream fos = openFileOutput(file, MODE_PRIVATE);
             fos.write(text.getBytes());
             fos.close();
             Toast.makeText(MainActivity.this, "Saved to" + getFilesDir(), Toast.LENGTH_SHORT).show();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(MainActivity.this, "Error Saving File!", Toast.LENGTH_SHORT).show();
         }
-}
+    }
 
-    public String readFile(String file){
+    public String readFile(String file) {
         String text = "";
-        try{
-            Toast.makeText(MainActivity.this,"Loading",Toast.LENGTH_SHORT).show();
+        try {
+            Toast.makeText(MainActivity.this, "Loading", Toast.LENGTH_SHORT).show();
             FileInputStream fis = openFileInput(file);
             int size = fis.available();
             byte[] buffer = new byte[size];
             fis.read(buffer);
             fis.close();
             text = new String(buffer);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(MainActivity.this, "Error Loading File!", Toast.LENGTH_SHORT).show();
         }
 
         return text;
     }
-
 
 
 }
